@@ -11,12 +11,8 @@ export class LivroService {
   private readonly API = 'https://www.googleapis.com/books/v1/volumes'
   constructor(private http:HttpClient) { }
 
-  search(value:string): Observable<Array<Item>>{
+  search(value:string): Observable<LivrosResultado>{
     const params = new HttpParams().append('q', value)
-    return this.http.get<LivrosResultado>(this.API, {params}).pipe(
-      tap(response =>console.log('tap response', response)),
-      map(result => result.items),
-      tap(tapResult =>  console.log('after map', tapResult))
-    )
+    return this.http.get<LivrosResultado>(this.API, {params})
   }
 }
